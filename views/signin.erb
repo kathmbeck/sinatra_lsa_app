@@ -1,0 +1,13 @@
+<form class="w3-margin w3-padding" action="/signin" method="post">
+  <div>
+    <label for="username">Username:
+      <input id="username" name="username" value="<%= params[:username] %>" >
+    </label>
+  </div>
+  <div>
+    <label for="password">Password:
+      <input type="password" id="password" name="password">
+    </label>
+  </div>
+  <button class="w3-green w3-round" type="submit">Sign In</button>
+</form>

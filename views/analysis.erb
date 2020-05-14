@@ -1,0 +1,51 @@
+<div class="w3-container w3-blue w3-cell">
+<h3 class="w3-margin"><%= @name %>: Complete Transcript</h3>
+<% if @transcript.empty? %>
+  <p class="w3-center">You have  not entered a transcript.</p>
+<% else %>
+  <ul class="w3-margin">
+    <% @transcript.each_with_index do |utterance, index| %>
+      <li>
+        <%= index + 1 %>. <%= utterance %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+</div>
+
+<div class="w3-container w3-cell">
+  <h3 class="w3-margin"=>Language Analysis Measures:</h3>
+
+  <% if @transcript.empty? %>
+    <p class="w3-center">There is nothing to analyze!</p>
+  <% else %>
+    <% @language_analysis.each do |measure, value| %>
+      <div class="w3-card-2 w3-margin">
+        <header class="w3-container w3-pale-blue">
+          <h4><%= measure %></h4>
+        </header>
+        <div class="w3-container w3-padding">
+          <p><%= value %></p>
+        </div>
+      </div>
+    <% end %>
+    <div class="w3-card-2 w3-margin">
+      <header class="w3-container w3-pale-red">
+        <h4>Average MLU for Age (+/- 1SD)</h4>
+      </header>
+      <div class="w3-container w3-padding">
+        <p><%= @mean_mlu %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+<% content_for :header_links do %>
+  <a class="w3-button" href="/clients">Home</a>
+  <% if user_signed_in? %>
+    <a class="w3-button" href="/signout">Sign Out</a>
+  <% else %>
+    <a class="w3-button" href="/signin">Sign In</a>
+  <% end %>
+<% end %>

@@ -1,0 +1,43 @@
+<h2 class="w3-padding">My Clients</h2>
+<% if !user_signed_in? %>
+  <p class="w3-center w3-text-red">Sign in to get started.</p>
+<% elsif session[:clients].empty? %>
+  <p class="w3-center">You do not have any clients saved.</p>
+<% else %>
+  <table class="w3-table w3-border w3-bordered">
+    <tr class="w3-yellow">
+      <th>Name</th>
+      <th>Age</th>
+      <th>Transcript</th>
+      <th>Analysis</th>
+      <th>Delete</th>
+    </tr>
+    <tr>
+    <% session[:clients].each do |client| %>
+      <td><%= client[:name] %></td>
+      <td><%= client[:years] %> years, <%=client[:months] %> months</td>
+      <td><a href="/clients/<%= client[:name] %>/transcript">View/Edit</a></td>
+      <td><a href="/clients/<%= client[:name] %>/transcript/analysis">See Results</a></td>
+      <td>
+        <form action="/clients/<%= client[:name] %>/destroy" method="post">
+          <button class="w3-buttonß w3-round">Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% end %>
+
+<% content_for :header_links do %>
+  <a class="w3-button" href="/clients/new">New Client</a>
+  <% if user_signed_in? %>
+    <a class="w3-button" href="/signout">Sign Out</a>
+  <% else %>
+    <a class="w3-button" href="/signin">Sign In</a>
+  <% end %>
+<% end %>
+
+<% content_for :footer_links do %>
+<a class="w3-margin" href="/clients/Sample%20Client/transcript/analysis"><i>Sample Transcript/Analysis</i></a>
+<a class="w3-margin" href="/transcription_guide"><i>Transcription Guide</i></a>
+<% end %>

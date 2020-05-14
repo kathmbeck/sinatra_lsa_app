@@ -1,0 +1,62 @@
+
+<div class="w3-padding w3-bar">
+  <h2 class="w3-padding w3-bar-item">Client: <%= @client[:name] %></h2>
+</div>
+
+<div class="w3-container w3-right-align w3-padding-large"><em>
+  <p>Click on text to edit utterance, and select "Save Edit" to save changes. </p>
+  <p>When your transcript is complete, select "Analyze Language Sample" at the bottom.</p>
+</div>
+
+  <form class="w3-container w3-padding-48" action="/clients/<%= @client[:name] %>/transcript" method="post">
+    <input class="w3-cell w3-input" type='text' style="width:80%" name="utterance" value= '' placeholder="Transcribe New Utterance Here">
+    <button class="w3-button w3-right w3-pale-green">Add to Transcript</button>
+  </form>
+
+<table class="w3-table-all w3-padding-large">
+    <tr class="w3-yellow">
+      <th>Number</th>
+      <th>Utterance</th>
+      <th colspan="2"></th>
+    </tr>
+    <% unless @client[:transcript].empty? %>
+      <% @client[:transcript].each_with_index do |utterance, index| %>
+      <tr>
+        <td><%= (index + 1).to_s %> </td>
+        <div class="w3-cell-row">
+          <form action="/clients/<%= @client[:name] %>/transcript/<%= index %>" method ="post">
+          <td>
+            <input class="w3-cell" style="width:80%" name="utterance" value="<%= utterance %>" placeholder="<%= utterance %>">
+            <button class="w3-button w3-tiny w3-right w3-pale-green w3-round">Save Edit</button>
+          </td>
+        </form>
+        </div>
+
+        <td>
+          <form action="/clients/<%= @client[:name] %>/transcript/<%= index %>/destroy" method="post">
+            <button class="w3-button w3-tiny w3-red w3-round">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+</table>
+
+<div class="w3-container w3-center w3-margin w3-text-green">
+<img src="https://static.vecteezy.com/system/resources/previews/000/330/020/large_2x/vector-arrow-pointing-right-line-black-icon.jpg" alt="arrow" style="width: 5%">
+<a class="w3-center w3-xlarge" href="/clients/<%= @client[:name] %>/transcript/analysis">Analyze Language Sample</a>
+</div>
+
+
+<% content_for :header_links do %>
+  <a class="w3-button" href="/clients">Home</a>
+  <% if user_signed_in? %>
+    <a class="w3-button" href="/signout">Sign Out</a>
+  <% else %>
+    <a class="w3-button" href="/signin">Sign In</a>
+  <% end %>
+<% end %>
+
+<% content_for :footer_links do %>
+<a href="/transcription_guide"><em>How do I transcribe utterances?</em></a>
+<% end %>

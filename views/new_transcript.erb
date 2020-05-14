@@ -1,0 +1,27 @@
+
+<h2 class="w3-padding">Enter Client Details:</h2>
+<form class='w3-container' action="/transcripts" method="post">
+  <label><b>Name:</b></label>
+    <input class="w3-input" type="text" name="client_name" placeholder="Client Name" value="">
+  <br>
+  <label><b>Age in Years and Months:</b></label>
+    <input class="w3-input" type="text" name="years" placeholder="Years" value="">
+    <input class="w3-input" type="text" name="months" placeholder="Months" value="">
+  <br>
+  <input class="w3-button w3-red" type="submit" value="Save">
+  <a class="w3-button w3-red" href="/transcripts">Cancel</a>
+</form>
+
+
+<% content_for :header_links do %>
+  <a class="w3-button" href="/">Home</a>
+  <% if user_signed_in? %>
+    <a class="w3-button" href="/signout">Sign Out</a>
+  <% else %>
+    <a class="w3-button" href="/signin">Sign In</a>
+  <% end %>
+<% end %>
+
+<% content_for :footer_links do %>
+<a href="/transcription_guide"><em>How do I transcribe utterances?</em></a>
+<% end %>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Language Analysis Tool</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans">
+    <link rel="stylesheet" href="/stylesheets/whitespace-reset.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+  <body>
+    <header class="w3-container w3-red">
+      <h1>Language Sample Analysis Tool</h1>
+        <div class="w3-white w3-right">
+          <%= yield_content :header_links %>
+        </div>
+      </header>
+    <main>
+      <% if session[:success] %>
+        <p class="w3-panel w3-pale-green"><%= session.delete(:success) %></p>
+      <% elsif session[:error] %>
+        <p class="w3-panel w3-pale-red"><%= session.delete(:error) %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+    <footer>
+      <div class="w3-right w3-padding">
+        <%= yield_content :footer_links %>
+      </div>
+    </footer>
+  </body>
+</html>
